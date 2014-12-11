@@ -221,7 +221,7 @@ function Initialize(){
 
 function Drawing(){
 	console.log("drawing");
-	$('.iw').remove();
+	$('.infowindow').remove();
 
 	inmap = $("#inmap");
 	layer = document.getElementById("can");
