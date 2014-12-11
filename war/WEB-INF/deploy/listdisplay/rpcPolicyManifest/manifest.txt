@@ -1,0 +1,3 @@
+# Module listdisplay
+# RPC service class, partial path of RPC policy file
+com.list.ozvimes.client.ListService, 6EDF2E2D97957542B935824155C865B6.gwt.rpc

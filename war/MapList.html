@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport"
+	content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no" />
+<title>MapList</title>
+<script type="text/javascript" language="javascript"
+	src="maplist/maplist.nocache.js"></script>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAawg_uIh114XdLaWF5MWnD-WKriqcBwLg&sensor=false"></script>
+<script type="text/javascript" language="javascript"
+	src="./jquery-2.1.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="./list.js"></script>
+<link type="text/css" rel="stylesheet" href="someone.css">
+</head>
+
+<body>
+
+
+	<!--
+	<div id="test"></div>
+	    <form method="POST" action="/listpage.html">
+    name:<input type="text" name="name"><br>
+    <input type="submit" value="submit">
+    </form>
+    -->
+
+	<div id="main">
+		<table id="htmltable" align="center" border="0" cellspacing="0"
+			cellpadding="0"></table>
+	</div>
+
+	<div id="sideBar">
+
+		<div align="center" id="header">
+			<!-- 	<h1 align="center">＜地図一覧＞</h1> -->
+			<input type="button" id="tabBtn"></input>
+
+			<div align="center" id="searcharea">
+				<div id="word_area" align="center"></div>
+				<div id="search_button" align="center"></div>
+			</div>
+		</div>
+
+		<div class="is-disp">
+		<ul>
+			<li><input type="checkbox" checked="" id="picDisp" onclick="checkDisp('picDisp','.tbicon')" /><Label for="picDisp">画像</Label></li>
+			<li><input type="checkbox" checked="" id="upDisp" onclick="checkDisp('upDisp','.regi')" /><Label for="upDisp">編集</Label></li>
+			<li><input type="checkbox" checked="" id="delDisp" onclick="checkDisp('delDisp','.del')" /><Label for="delDisp">削除</Label></li>
+			<!-- QR<input type="checkbox" checked="" id="qrDisp" onclick="checkDisp('qrDisp','.qr')" /><Label for="picDisp">画像</Label>	-->
+			<li><input type="checkbox" checked="" id="minDisp" onclick="checkDisp('minDisp','.min')" /><Label for="minDisp">Small</Label></li>
+		</ul>
+		</div>
+
+	<div id="footer">
+		<table align="center">
+			<tr>
+				<td><div id="ItemPage" align="center"></div></td>
+			</tr>
+			<tr>
+				<td><div id="MapAdmin" align="center"></div></td>
+			</tr>
+		</table>
+	</div>
+	
+	
+	<div id="add_area" align="center"></div>
+	
+	</div>
+	<!-- 
+	<h1 align="center"><a href="mapedit.html" align="center">地図編集</a></h1>
+	<h1 align="center"><a href="MapList.html" align="center">地図リスト</a></h1>
+	-->
+	
+	<div id="loading"><img src="./img/loader.gif"></img></div>
+	
+</body>
+</html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+              http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5" xmlns="http://java.sun.com/xml/ns/javaee">
+
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>greetServlet</servlet-name>
+		<servlet-class>com.map.ozvimes.server.GreetingServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>greetServlet</servlet-name>
+		<url-pattern>/ozvimesmap/greet</url-pattern>
+	</servlet-mapping>
+
+<!-- 
+	<servlet>
+		<servlet-name>addServ</servlet-name>
+		<servlet-class>com.map.ozvimes.server.ItemIndexServ</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>addServ</servlet-name>
+		<url-pattern>/list</url-pattern>
+	</servlet-mapping>
+-->
+
+	<!-- -->
+	<servlet>
+		<servlet-name>showServlet</servlet-name>
+		<servlet-class>com.list.ozvimes.server.ListServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>showServlet</servlet-name>
+		<url-pattern>/listdisplay/listpage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+    	<servlet-name>MapEditServlet</servlet-name>
+    	<servlet-class>com.mapedit.ozvimes.server.MapEditServiceImpl</servlet-class>
+  	</servlet>
+  
+ 	<servlet-mapping>
+    	<servlet-name>MapEditServlet</servlet-name>
+    	<url-pattern>/mapedit/mapedit</url-pattern>
+  	</servlet-mapping>
+  
+  	
+  	<servlet>
+		<servlet-name>MapSendServ</servlet-name>
+		<servlet-class>com.mapedit.ozvimes.server.getImageData</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MapSendServ</servlet-name>
+		<url-pattern>/upload</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet>
+		<servlet-name>MapListServ</servlet-name>
+		<servlet-class>com.maplist.ozvimes.server.MapListServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>MapListServ</servlet-name>
+		<url-pattern>/maplist/MapList</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>IconUpServ</servlet-name>
+		<servlet-class>com.list.ozvimes.server.IconUploaderServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>IconUpServ</servlet-name>
+		<url-pattern>/icons</url-pattern>
+	</servlet-mapping>
+	
+	
+	<!-- pos格納 Servlet -->
+	<servlet>
+		<servlet-name>posUpdateServ</servlet-name>
+		<servlet-class>com.update.ozvimes.UpdatePosition</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>posUpdateServ</servlet-name>
+		<url-pattern>/posupdate</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Default page to serve -->
+	<welcome-file-list>
+		<welcome-file>listpage.html</welcome-file>
+	</welcome-file-list>
+
+</web-app>

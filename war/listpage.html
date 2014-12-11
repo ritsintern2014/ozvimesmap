@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no" />
+<title>List</title>
+<link type="text/css" rel="stylesheet" href="someone.css">
+<script type="text/javascript" language="javascript"
+	src="listdisplay/listdisplay.nocache.js"></script>
+<script type="text/javascript" language="javascript"
+	src="./jquery-2.1.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="./list.js"></script>
+
+<script>
+/* デバッグ：ゲートウェイ役 */
+
+$(document).ready(function(){
+
+    $("#posSend").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/posupdate",
+            data: {
+                "ItemID": $("#ItemID").val(),
+                "APIDs": $("#APIDs").val(),
+                "RSSIs": $("#RSSIs").val(),
+                "x": $("#x").val(),
+                "y": $("#y").val(),
+                "oAcc": $("#oAcc").val(),
+                "lat": $("#lat").val(),
+                "lng": $("#lng").val(),
+                "floor": $("#floor").val(),
+                "iAcc": $("#iAcc").val(),
+                "battery": $("#battery").val()
+            },
+            success: function(){
+ 
+                // 処理を記述
+                alert("送信完了");
+            }
+        });
+ 
+    });
+});
+</script>
+
+</head>
+
+<body>
+	<basefont size="7" color="#000000">
+
+
+	<div id="main">
+
+		<table id="htmltable" align="center" border="0" cellspacing="0"
+			cellpadding="0"></table>
+
+	</div>
+
+<div id="sideBar">
+
+	<div align="center" id="header">
+		<!-- <h1 align="center">＜物品一覧＞</h1>	-->
+		<input type="button" id="tabBtn"></input>
+		
+		<div id="searcharea">
+			<div id="word_area" align="center"></div>
+			<table align="center">
+				<tr>
+					<td><div id="list_area" align="center"></div></td>
+					<td><div id="search_button" align="center"></div></td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<div id="add_item" align="center"></div>
+		
+		<!-- デバッグ：ゲートウェイ役 --><!-- 
+		<form method="post" action="/posupdate">	-->
+		<div class='debug' style='width:0px'>
+		物品ID   <input type="textarea" id="ItemID" name="ItemID" value="0000"/><br>
+		APのID   <input type="textarea" id="APIDs" name="APIDs" value="1111,2222,3333" /><br>
+		RSSI     <input type="textarea" id="RSSIs" name="RSSIs" value="99,88,77"/><br>
+		x        <input type="textarea" id="x" name="x" value="5.0" /><br>
+		y        <input type="textarea" id="y" name="y" value="4.0" /><br>
+		ozv誤差  <input type="textarea" id="oAcc" name="oAcc" value="2.0" /><br>
+		Lat      <input type="textarea" id="lat" name="lat" value="36" /><br>
+		Lng      <input type="textarea" id="lng" name="lng" value="136" /><br>
+		Floor    <input type="textarea" id="floor" name="floor" value="2.0" /><br>
+		imes誤差 <input type="textarea" id="iAcc" name="iAcc" value="15.0" /><br>
+		電池電圧 <input type="textarea" id="battery" name="battery"  value="1.5" /><br>
+		<input type="submit" id="posSend" value="送信" />
+		</div>
+		<!-- </form>	-->
+	</div>
+	
+			
+		<div class="is-disp">
+		<ul>
+			<li><input type="checkbox" checked="" id="picDisp" onclick="checkDisp('picDisp','.tbicon')" /><Label for="picDisp">画像</Label></li>
+			<li><input type="checkbox" checked="" id="desDisp" onclick="checkDisp('desDisp','.destination')" /><Label for="desDisp">納品</Label></li>
+			<li><input type="checkbox" checked="" id="upDisp" onclick="checkDisp('upDisp','.regi')" /><Label for="upDisp">更新</Label><br></li>
+			<li><input type="checkbox" checked="" id="delDisp" onclick="checkDisp('delDisp','.del')" /><Label for="delDisp">削除</Label></li>
+			<li><input type="checkbox" checked="" id="qrDisp" onclick="checkDisp('qrDisp','.qr')" /><Label for="qrDisp">QR</Label></li>
+			<li><input type="checkbox" checked="" id="batDisp" onclick="checkDisp('batDisp','.battery')" /><Label for="batDisp">電池</Label></li>
+			
+			<li><input type="checkbox" checked="" id="debugDisp" onclick="checkDisp('debugDisp','.debug')" /><Label for="debugDisp">Debug</Label></li>
+			<li><input type="checkbox" checked="" id="minDisp" onclick="checkDisp('minDisp','.min')" /><Label for="minDisp">Small</Label></li>
+		</ul>
+		</div>
+
+	<div id="footer">
+		<table align="center">
+			<tr>
+				<td><div id="ItemPage" align="center"></div></td>
+			</tr>
+			<tr>
+				<td><div id="MapAdmin" align="center"></div></td>
+			</tr>
+		</table>
+	</div>
+</div>
+	<!-- 
+	<h1><a href="mapedit.html" align="center">地図編集</a></h1>
+	<h1><a href="MapList.html" align="center">地図リスト</a></h1>
+	-->
+
+<div id="loading"><img src="./img/loader.gif"></img></div>
+
+</body>
+</html>

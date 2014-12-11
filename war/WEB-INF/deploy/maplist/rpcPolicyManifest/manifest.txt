@@ -1,0 +1,3 @@
+# Module maplist
+# RPC service class, partial path of RPC policy file
+com.maplist.ozvimes.client.MapListService, 72E1255542E440A37234941B9813F9EC.gwt.rpc

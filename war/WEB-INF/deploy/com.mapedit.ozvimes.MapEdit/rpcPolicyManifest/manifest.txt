@@ -1,0 +1,3 @@
+# Module com.mapedit.ozvimes.MapEdit
+# RPC service class, partial path of RPC policy file
+com.mapedit.ozvimes.client.MapEditService, 26CFC4B620BFB5E93B0EAC8600FF2C0C.gwt.rpc

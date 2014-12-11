@@ -1,0 +1,2 @@
+serviceClass: com.maplist.ozvimes.client.MapListService
+path: 72E1255542E440A37234941B9813F9EC.gwt.rpc

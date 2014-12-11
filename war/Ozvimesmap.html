@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- The DOCTYPE declaration above will set the     -->
+<!-- browser's rendering engine into                -->
+<!-- "Standards Mode". Replacing this declaration   -->
+<!-- with a "Quirks Mode" doctype is not supported. -->
+
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<!-- 
+<meta name="viewport" content="user-scaleable=yes, width=devicewidth">-->
+<meta "user-scalable=no">
+
+<!--                                                               -->
+<!-- Consider inlining CSS to reduce the number of requested files -->
+<!--                                                               -->
+<link type="text/css" rel="stylesheet" href="Ozvimesmap.css">
+
+<!-- Any title is fine                         -->
+<title>室内MAPデモ</title>
+
+<!--                                           -->
+<!-- This script loads your compiled module.   -->
+<!-- If you add any GWT meta tags, they must   -->
+<!-- be added before this line.                -->
+<!--                                           -->
+<script type="text/javascript" language="javascript"
+	src="ozvimesmap/ozvimesmap.nocache.js"></script>
+<script type="text/javascript" language="javascript"
+	src="./jquery-2.1.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="./inmap.js"></script>
+<script type="text/javascript"
+	src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAawg_uIh114XdLaWF5MWnD-WKriqcBwLg&sensor=false"></script>
+
+<link type="text/css" rel="stylesheet" href="itemdetail.css">
+</head>
+
+<!--                                           -->
+<!-- The body can have arbitrary html, or      -->
+<!-- you can leave the body empty if you want  -->
+<!-- to create a completely dynamic UI.        -->
+<!--                                           -->
+<body>
+
+	<!-- OPTIONAL: include this if you want history support -->
+	<iframe src="javascript:''" id="__gwt_historyFrame" tabIndex='-1'
+		style="position: absolute; width: 0; height: 0; border: 0"></iframe>
+
+	<!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+	<noscript>
+		<div
+			style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+			Your web browser must have JavaScript enabled in order for this
+			application to display correctly.</div>
+	</noscript>
+
+	<!-- 受け渡し -->
+	<div id="keyarea" value=""></div>
+	<!-- 
+<form method="post" action="listpage.html">-->
+	<input type="hidden" value="no_name" id="g_name">
+	<input type="hidden" value="no_x" id="g_x">
+	<input type="hidden" value="no_y" id="g_y">
+
+	<input type="hidden" value="no_inAcc" id="g_inAcc">
+
+	<input type="hidden" value="no_bx" id="g_bx">
+	<input type="hidden" value="no_by" id="g_by">
+
+	<input type="hidden" value="no_unitM" id="g_unitM">
+	<input type="hidden" value="no_OWS" id="g_OWS">
+
+	<input type="hidden" value="no_unitM" id="g_unitM">
+	<input type="hidden" value="no_OWS" id="g_OWS">
+	<!-- </form> -->
+
+	<table align="center" id="head">
+		<tr>
+			<td><div id="backBtn"></div></td>
+			<td><div id="lookGoogleBtn"></div></td>
+		</tr>
+	</table>
+
+	<!-- 
+	<div id="inputArea" style="border: 2px solid blue; border-radius: 5px"> ・地図上をドラッグして、その長さを記入
+	<input type="textarea" id="nummeter" value="1"></input>[m]
+	-->
+
+	<!--
+	<input type="textarea" id="xm" value="3"></input>x座標
+	<br>
+	<input type="textarea" id="ym" value="4"></input>y座標
+	<input type="button" id="btn1" value="決定"></input>
+	-->
+	<!-- 
+	<input type="button" id="modeBtn" value="縮尺決定モード"></input> </div> -->
+
+	<ul class="tab">
+		<li class="select">屋内</li>
+		<li>屋外</li>
+	</ul>
+
+	<ul class="content">
+
+		<li>
+			<div id="viewArea">
+				<img id="inmap" src="" />
+				<canvas id="can"></canvas>
+			</div>
+		</li>
+		<li class="hide" id="liMap"><div id="gMap"></div></li>
+		
+	</ul>
+	
+	<div id="loading"><img src="./img/loader.gif"></img></div>
+
+</body>
+</html>

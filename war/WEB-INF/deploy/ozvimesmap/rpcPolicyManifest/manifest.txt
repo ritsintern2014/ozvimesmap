@@ -1,0 +1,3 @@
+# Module ozvimesmap
+# RPC service class, partial path of RPC policy file
+com.map.ozvimes.client.GreetingService, D75F79DF3489BF109962F49145ED834E.gwt.rpc

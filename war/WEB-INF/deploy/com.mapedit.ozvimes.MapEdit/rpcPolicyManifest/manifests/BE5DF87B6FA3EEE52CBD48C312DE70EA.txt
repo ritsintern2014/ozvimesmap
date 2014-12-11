@@ -1,0 +1,2 @@
+serviceClass: com.mapedit.ozvimes.client.MapEditService
+path: 26CFC4B620BFB5E93B0EAC8600FF2C0C.gwt.rpc

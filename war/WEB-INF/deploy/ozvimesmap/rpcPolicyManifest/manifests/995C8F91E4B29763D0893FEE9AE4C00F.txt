@@ -1,0 +1,2 @@
+serviceClass: com.map.ozvimes.client.GreetingService
+path: D75F79DF3489BF109962F49145ED834E.gwt.rpc

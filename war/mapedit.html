@@ -1,0 +1,74 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>地図編集</title>
+<script type="text/javascript" language="javascript"
+	src="mapedit/mapedit.nocache.js"></script>
+<script type="text/javascript" language="javascript"
+	src="./jquery-2.1.1.min.js"></script>
+<script type="text/javascript" language="javascript" src="./mapedit.js"></script>
+<link type="text/css" rel="stylesheet" href="someone.css">
+</head>
+
+<body>
+<!--	<div id="MapAdmin" class="mapad"></div> -->
+
+	<div class="meter" id="inputMeter">
+		<div class="m-pos">
+		<input type="textarea" class="gwt-TextBox"
+			id="nummeter" value="1"></input>[m]
+			<input type="button" id="meterBtn" class="btn2" value="決定" />
+			</div>
+	</div>
+
+	<div id="mapCanvas">
+		<img id="inmap" align="center" style="z-index: 1; position: absolute"
+			src="" />
+		<canvas id="can" aligh="center" style="z-index: 2; position: absolute"></canvas>
+	</div>
+
+
+
+
+
+
+
+
+	<div id="sideBar">
+
+		<div class="canv">
+			<table>
+				<tr><td><div id="formPanel"></div></td></tr>
+				<tr><td><button id="modeBtn" class="btn2">縮尺を設定する</button></td></tr>
+				<tr><td><div id="sendButton"></div></td></tr>
+			</table>
+		</div>
+
+
+		<div id="footer">
+			<div id="MapAdmin" align="center"></div>
+		</div>
+	
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	<input type="hidden" id="BPx" value="1"></input>
+	<input type="hidden" id="BPy" value="2"></input>
+	<input type="hidden" id="unitM" value="3"></input>
+	<input type="hidden" id="OWS" value="4"></input>
+	
+	<input type="hidden" id="areaKey" value="none"></input>
+	
+	<input type="hidden" id="JavaRead" value="false"></input>
+</body>
+</html>

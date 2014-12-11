@@ -1,0 +1,2 @@
+serviceClass: com.list.ozvimes.client.ListService
+path: 6EDF2E2D97957542B935824155C865B6.gwt.rpc
