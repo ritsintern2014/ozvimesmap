@@ -75,11 +75,7 @@ public class ListDisplay implements EntryPoint {
 		});
 */
 
-		//blastName();
 		ShowItems("",0);
-		
-
-
 		
 		final ListBox lb = new ListBox();
 		lb.addItem("物品名");
