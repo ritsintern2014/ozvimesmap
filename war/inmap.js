@@ -220,8 +220,6 @@ function Initialize(){
 }
 
 function Drawing(){
-	console.log("drawing");
-	$('.infowindow').remove();
 
 	inmap = $("#inmap");
 	layer = document.getElementById("can");
@@ -397,8 +395,12 @@ function SetOneMeter(e){
 }
 
 function ItemWindow(name, url, x, y) {
+
 	var htmlStr = "";
 	var iwid = "iw-" + name;
+
+	if( $("#"+iwid).length>0 )	$("#"+iwid).remove();
+
 	htmlStr += "<div id="+ iwid +" class='infowindow'><h2>"+ name +"</h2><img src='"+url+"' />";
 	htmlStr += "</div>";
 

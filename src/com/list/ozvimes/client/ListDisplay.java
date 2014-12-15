@@ -1,6 +1,7 @@
 package com.list.ozvimes.client;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
@@ -26,6 +27,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
+
 public class ListDisplay implements EntryPoint {
 
 	private Panel wordpanel = new VerticalPanel();
@@ -34,8 +36,8 @@ public class ListDisplay implements EntryPoint {
 
 	private TextBox input = new TextBox();
 	private Button buttonSend = new Button("検索");
-	private Button itemAdd = new Button("物品の追加");
-
+	private Button itemAdd = new Button();
+	
 	//private Button itemPage = new Button("物品管理");
 	private Button MapAdmin = new Button("地図");
 
@@ -43,6 +45,8 @@ public class ListDisplay implements EntryPoint {
 	final String str = "";
 
 	CellTable<Item> table = new CellTable<Item>();
+
+	final List<Item> Items = new ArrayList<Item>();
 
 	private final ListServiceAsync service = GWT.create(ListService.class);
 	
@@ -70,16 +74,13 @@ public class ListDisplay implements EntryPoint {
 		this.itemPage.addClickHandler(new ClickHandler(){
 			@Override
 			public void onClick(ClickEvent event) {
-				Window.Location.replace("/listpage.html");
-			}
-		});
+				Window.Locatio
+	});
 */
-
+		
 		//blastName();
 		ShowItems("",0);
 		
-
-
 		
 		final ListBox lb = new ListBox();
 		lb.addItem("物品名");
@@ -93,9 +94,11 @@ public class ListDisplay implements EntryPoint {
 		this.buttonSend.addClickHandler(new ClickHandler(){
 			@Override
 			public void onClick(ClickEvent event) {
-				ShowItems(input.getText(), lb.getSelectedIndex());
+				showLoader();
+				ShowItems(input.getText(),0);
 			}
 		});
+		
 
 		final MyDialogBox diag = new MyDialogBox();
 
@@ -285,47 +288,74 @@ public class ListDisplay implements EntryPoint {
 
 			@Override
 			public void onSuccess(String result) {
-				final ArrayList<Item> Items = new ArrayList<Item>();
 				String[] ItemValue = result.split(",", 0);
+				Items.clear();
 
 				//Window.alert(result);
 
-				String str = "<thead><tr class=\"tableindex\"><td class='debug'>ID</td><td class='tbicon'>イメージ</td><td>物品名</td><td>所在地</td><td class='debug'>(x ,y)</td><td class='destination'>納品先</td><td class='regi'>登録</td><td class='del'>削除</td><td class='qr'>QRコード</td><td class='battery'>電池残量</td></tr></thead><tbody>";
+				String str = "<thead><tr class=\"tableindex\">";
+				str += "<td class='debug'>ID</td>";
+				str += "<td class='tbicon'>イメージ</td>";
+				str += "<td>物品名</td>";
+				str += "<td>所在地</td>";
+				str += "<td class='debug'>(x ,y)</td>";
+				str += "<td class='destination'>納品先</td>";
+				str += "<td class='regi'>登録</td>";
+				str += "<td class='del'>削除</td>";
+				str += "<td class='qr'>QRコード</td>";
+				str += "<td class='battery'>電池残量</td>";
+				str += "</tr></thead>";
+				str += "<tbody>";
 
 				int i = 0;
 				int valLength = 10;
 				for(i=0; i < ItemValue.length/valLength; i++){
-					Items.add( new Item( ItemValue[0+i*valLength], ItemValue[1+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), ItemValue[5+i*valLength]  ) );
-					//Items.get(i).setIconUrl(ItemValue[6+i*valLength]);
-
-					String url = ItemValue[6+i*valLength];
+					//Items.add( new Item( ItemValue[0+i*valLength], ItemValue[1+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), ItemValue[5+i*valLength]  ) );
+					//Items.get(i).setIco//rl(ItemValue[6+i*valLength]);
 					
-					Items.get(i).setIconUrl(ItemValue[6+i*valLength]);
+					//Window.alert(result);
+					
+					//List<Itema> Itemas = new ArrayList<Itema>();
+					Item item = new Item(ItemValue[9+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), 0.0, 0.0, 0.0, 0.0, ItemValue[5+i*valLength], Double.valueOf(ItemValue[8+i*valLength]), "0000");
+					item.setIconUrl(ItemValue[6+i*valLength]);
+					item.setKey(ItemValue[0+i*valLength]);
+					item.setDestination(ItemValue[1+i*valLength]);
+					item.setName(ItemValue[1+i*valLength]);
+					Items.add(item);
+					
+					
+					
+//					Items.get(i).setIconUrl(ItemValue[6+i*valLength]);
 
 					if(i%2==1)
 						str += "<tr class=\"tablerecode1\">";
 					else{
 						str += "<tr class=\"tablerecode2\">";
 					}
-					str += "<td class='debug'>"+ ItemValue[9+i*valLength] +"</td>";
-					str += "<td class='tbicon'><img src=\""+ url +"\"></img></td>";
+					str += "<td class='debug'>"+ item.getItemID() +"</td>";
+					str += "<td class='tbicon'><img src=\""+ item.getIconUrl() +"\"></img></td>";
 					//str += "<td><div style=\"font-size:150%;\">" + i + "</div></td>";
-					str += "<td><a class='name' href=\"Ozvimesmap.html?"+ Items.get(i).getKey() + "\">"+Items.get( i ).getName() +"</a></td>";
-					str += "<td>"+ Items.get(i).getMapKey() +"</td>";
-					str += "<td class='debug'>("+Items.get( i ).getX()+ ", "+ Items.get(i).getY()+ ")</td>";
+					str += "<td><a class='name' href=\"Ozvimesmap.html?"+ item.getKey() + "\">" + item.getName() +"</a></td>";
+					str += "<td>"+ item.getAreaID() +"</td>";
+					str += "<td class='debug'>("+item.getX()+ ", "+ item.getY()+ ")</td>";
 					//tstr += "<td><input type=\"button\" value=\"削除\" itemkey=\"" + Items.get(j).getKey()  + "\" id=\"deleteButton"+ j +"\"></td>";
 					
-					str += "<td class='destination'>"+ ItemValue[7+i*valLength] +"</td>";
+					str += "<td class='destination'>"+ item.getDestination() +"</td>";
 					
 					str += "<td class='regi'><div id=\"UpdateBtn"+ i +"\" align=\"center\" class=\"btn1\"></div></td>";
 					str += "<td class='del'><div id=\"deleteBtn"+ i +"\" align=\"center\" class=\"btn1 del\"></div></td>";
-					str += "<td class='qr'><img class='qrcode' src=\"https://chart.googleapis.com/chart?cht=qr&chs="+"150x150"+"&chco="+"3C14AC"+"&chl=http://ricohintern2014.appspot.com/Ozvimesmap.html?" + Items.get(i).getKey()+"\" /img>";
-					str += "<td class='battery'>"+ ItemValue[8+i*valLength] +"</td>";
-					str += "</tr>";
-				
+					str += "<td class='qr'><img class='qrcode' src=\"https://chart.googleapis.com/chart?cht=qr&chs="+"150x150"+"&chco="+"3C14AC"+"&chl=http://ri Items.get(i)tern2014.appspot.com/Ozvimesmap.html?" + item.getKey()+"\" /img>";
+					str += "<td class='battery'>"+ item.getBattery() +"</td>";//					str += "</tr>";
+					
 				}
+					
+					//Window.alert(str);
+				
+		//}
 				
 				str += "</tbody>";
+				
+				//Window.alert(str);
 				
 				//lbResult.setText(result);
 				tableElement.setInnerHTML(str);
@@ -475,7 +505,7 @@ public class ListDisplay implements EntryPoint {
 					UpdateButton.addStyleName("btn1 upbtn");
 
 					final String keyVal = Items.get(i).getKey();
-					final UpdateDialogBox diag = new UpdateDialogBox(keyVal, Items.get(i).getName(), Items.get(i).getX(), Items.get(i).getY(), Items.get(i).getAccuracy(), Items.get(i).getMapKey());	//更新用D-Box
+					final UpdateDialogBox diag = new UpdateDialogBox(keyVal, Items.get(i).getName(), Items.get(i).getX(), Items.get(i).getY(), Items.get(i).getOzvAcc(), Items.get(i).getAreaID());	//更新用D-Box
 
 					deleteButton.addClickHandler(new ClickHandler(){
 						@Override
@@ -769,38 +799,59 @@ public class ListDisplay implements EntryPoint {
 	private native static void showLoader() /*-{
 		$wnd.showLoader();
 	}-*/;
-
-	private class Item {
-
+	
+	public class Item {
 		private String key;
-
+		private String ItemID;
 		private String name;
-
-		private String IconUrl;
-
+		private String APIDs;
+		private String RSSIs;
 		private double x;
-
 		private double y;
-
-		private double accuracy;
-
-		private String MapKey;
-
-		public Item(String key, String name, double x, double y, double acc, String MapKey ) {
-			this.key = key;
-			this.name = name;
+		private double ozvAccuracy;
+		private double latitude;
+		private double longitude;
+		private double floor;
+		private double imesAccuracy;
+		private String areaID;
+		private String IconUrl;
+		private double battery;
+		private String destination;
+		private String LastTime;
+		private String BirthTime;
+		
+		public Item(String itemId, double x, double y, double oAcc, double lat, double lng, double floor, double iAcc, String areaID, double battery, String time) {
+			this.ItemID = itemId;
 			this.x = x;
 			this.y = y;
-			this.accuracy = acc;
-			this.MapKey = MapKey;
+			this.ozvAccuracy = oAcc;
+			this.latitude = lat;
+			this.longitude = lng;
+			this.floor = floor;
+			this.imesAccuracy = iAcc;
+			this.areaID = areaID;
+			this.battery = battery;
+			this.LastTime = time;
 		}
 
 		public String getKey() {
 			return this.key;
 		}
+		
+		public String getItemID() {
+			return this.ItemID;
+		}
 
 		public String getName() {
 			return this.name;
+		}
+		
+		public String getAPIDs() {
+			return this.APIDs;
+		}
+		
+		public String getRSSIs() {
+			return this.RSSIs;
 		}
 
 		public double getX() {
@@ -810,21 +861,69 @@ public class ListDisplay implements EntryPoint {
 		public double getY() {
 			return this.y;
 		}
-
-		public double getAccuracy() {
-			return this.accuracy;
+		
+		public double getOzvAcc() {
+			return this.ozvAccuracy;
+		}
+		
+		public double getLat() {
+			return this.latitude;
 		}
 
-		public String getMapKey() {
-			return this.MapKey;
+		public double getLng() {
+			return this.longitude;
 		}
-
+		
+		public double getFloor() {
+			return this.floor;
+		}
+		
+		public double getImesAcc() {
+			return this.imesAccuracy;
+		}
+		
+		public String getAreaID() {
+			return this.areaID;
+		}
+		
 		public String getIconUrl() {
-			return this.IconUrl;
+			return IconUrl;
+		}
+		
+		public double getBattery() {
+			return this.battery;
+		}
+		
+		public String getDestination() {
+			return destination;
+		}
+		
+		public String getTime() {
+			return LastTime;
+		}
+		
+		public String getBirthTime() {
+			return BirthTime;
+		}
+		
+		public void setKey(String key) {
+			this.key = key;
+		}
+		
+		public void setItemID(String itemId) {
+			this.ItemID = itemId;
 		}
 
 		public void setName(String name) {
 			this.name = name;
+		}
+		
+		public void setAPIDs(String APIDs) {
+			this.APIDs = APIDs;
+		}
+		
+		public void setRSSIs(String RSSIs) {
+			this.RSSIs = RSSIs;
 		}
 
 		public void setX(double x) {
@@ -834,17 +933,49 @@ public class ListDisplay implements EntryPoint {
 		public void setY(double y) {
 			this.y = y;
 		}
-
-		public void setAccuracy(double acc) {
-			this.accuracy = acc;
+		
+		public void setOzvAcc(double oAcc) {
+			this.ozvAccuracy = oAcc;
+		}
+		
+		public void setLat(double lat) {
+			this.latitude = lat;;
 		}
 
-		public void setMapKey(String MapKey) {
-			this.MapKey = MapKey;
+		public void setLng(double lng) {
+			this.longitude = lng;
 		}
-
-		public void setIconUrl(String IconUrl) {
-			this.IconUrl = IconUrl;
+		
+		public void setFloor(double floor) {
+			this.floor = floor;
+		}
+		
+		public void setImesAcc(double iAcc) {
+			this.imesAccuracy = iAcc;
+		}
+		
+		public void setAreaID(String areaID) {
+			this.areaID = areaID;
+		}
+		
+		public void setIconUrl(String iconUrl) {
+			this.IconUrl = iconUrl;
+		}
+		
+		public void setBattery(double battery) {
+			this.battery = battery;
+		}
+		
+		public void setDestination(String des) {
+			this.destination = des;
+		}
+		
+		public void setTime(String time) {
+			this.LastTime = time;
+		}
+		
+		public void setBirthTime(String time) {
+			this.BirthTime = time;
 		}
 	}
 }

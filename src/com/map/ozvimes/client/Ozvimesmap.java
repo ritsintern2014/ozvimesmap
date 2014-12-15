@@ -1,9 +1,14 @@
 package com.map.ozvimes.client;
 
+import com.google.gwt.core.client.Callback;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.geolocation.client.Geolocation;
+import com.google.gwt.geolocation.client.Position;
+import com.google.gwt.geolocation.client.Position.Coordinates;
+import com.google.gwt.geolocation.client.PositionError;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -117,6 +122,10 @@ public class Ozvimesmap implements EntryPoint {
 
 		});
 	}
+	
+	
+
+	LatLng center2 = LatLng.create(36, 136.3);
 
 	public void MyDialogBox(String name, String imgUrl, final double lat, final double lng, final double outAcc){
 		LatLng center = LatLng.create(lat, lng);
@@ -207,6 +216,92 @@ public class Ozvimesmap implements EntryPoint {
 		Circle cir = Circle.create(cop);
 
 		cir.setMap(maps);
+		
+		
+		
+		
+		
+		//現在地表示
+		Geolocation geoLoc = Geolocation.getIfSupported();
+		if(geoLoc != null){
+			Geolocation.PositionOptions geoOptions = new Geolocation.PositionOptions();            
+			geoOptions.setMaximumAge(0);
+			geoOptions.setTimeout(18000);
+			geoOptions.setHighAccuracyEnabled(false);
+	
+			geoLoc.getCurrentPosition(new Callback<Position, PositionError>() {
+			    @Override
+			    public void onSuccess(Position result) {  // never called
+			        Coordinates coords = result.getCoordinates();
+			        final double lat2 = coords.getLatitude();
+			        final double lng2 = coords.getLongitude();
+			        
+			        
+					MarkerOptions mop2 = MarkerOptions.create();
+					center2 = LatLng.create(lat2, lng2);
+					mop2.setPosition(center2);
+			        
+	
+					Marker marker2 = Marker.create(mop2);
+					marker2.setMap(maps);
+					marker2.setTitle("現在地");
+			        
+					//Window.alert("Coordinates: (" + lat2 + ", " + lng2 + ")");
+			    }
+	
+			    @Override
+			    public void onFailure(PositionError error) { // always called
+			        String message = "";
+			        switch (error.getCode()) {
+			          case PositionError.UNKNOWN_ERROR:
+			            message = "Unknown Error";
+			            break;
+			          case PositionError.PERMISSION_DENIED:
+			            message = "Permission Denied";
+			            break;
+			          case PositionError.POSITION_UNAVAILABLE:
+			            message = "Position Unavailable";
+			            break;
+			          case PositionError.TIMEOUT:
+			            message = "Time-out";
+			            break;
+			          default:
+			            message = "Unknown error code.";
+			        }
+			        
+			        Window.alert("現在地を取得できませんでした.\n" + message);
+			    }
+			}, geoOptions);
+		}
+		
+
+		
+		
+		//ルーティング 作成中
+		/*
+		DirectionsRequest request = DirectionsRequest.create();
+		request.setDestination(center2);
+		request.setOrigin(center);
+		request.setTravelMode(TravelMode.WALKING);
+		DirectionsService ds = DirectionsService.create();
+		
+
+		ds.route(request, new DirectionsService.Callback() {
+
+			@Override
+			public void handle(DirectionsResult a, DirectionsStatus b) {
+				
+				
+				Window.alert(b.getValue());
+				JsArray<DirectionsRoute> routes = a.getRoutes();
+
+				Window.alert(Integer.toString(routes.length()));
+				int i = 0;
+				for(i=0;i < routes.length();i++){
+					Window.alert(routes.get(0).getLegs().get(0).getSteps().get(0).getDuration().getText());
+				}
+			}
+		});*/
 	}
 
 }
