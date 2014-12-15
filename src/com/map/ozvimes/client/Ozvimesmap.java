@@ -269,7 +269,7 @@ public class Ozvimesmap implements EntryPoint {
 			            message = "Unknown error code.";
 			        }
 			        
-			        Window.alert("現在地を取得できませんでした.\n" + message);
+			        //Window.alert("現在地を取得できませんでした.\n" + message);
 			    }
 			}, geoOptions);
 		}

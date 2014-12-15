@@ -319,7 +319,7 @@ public class ListDisplay implements EntryPoint {
 					Item item = new Item(ItemValue[9+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), 0.0, 0.0, 0.0, 0.0, ItemValue[5+i*valLength], Double.valueOf(ItemValue[8+i*valLength]), "0000");
 					item.setIconUrl(ItemValue[6+i*valLength]);
 					item.setKey(ItemValue[0+i*valLength]);
-					item.setDestination(ItemValue[1+i*valLength]);
+					item.setDestination(ItemValue[7+i*valLength]);
 					item.setName(ItemValue[1+i*valLength]);
 					Items.add(item);
 					

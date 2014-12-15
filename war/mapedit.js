@@ -53,7 +53,7 @@ function changeEvent() {
 function CalledJava(){
 	console.log("cant get map");
 	if($('#JavaRead').val() == "true"){
-		console.log("_js_");
+		//console.log("_js_");
 		
 		BPx = $("#BPx").val();
 		BPy = $("#BPy").val();
@@ -73,7 +73,9 @@ function CalledJava(){
 			console.log("loaded map");*/
 			mode = 1;
 			firstMake = false;
-			showMessageBox("①地図を変更する場合は、<br>　画面左上のオレンジのボタンを押して地図を選択。<br>　地図を変更しない場合は<br>　基準点の場所をクリックして下さい。");
+			//showMessageBox("①地図を変更する場合は、<br>　画面左上のオレンジのボタンを押して地図を選択。<br>　地図を変更しない場合は<br>　基準点の場所をクリックして下さい。");
+			showMessageBox("①-新たに地図を登録する場合は、<br>　 画面左上のオレンジのボタンを押して地図を選択。<br>　-以前の地図と変更しない場合は<br>　 基準点の場所をクリックして下さい。");
+
 			Initialize();
 //		}
 
@@ -311,7 +313,7 @@ function popMeter(){
 	inArea.style.left = rect.left + (fx+lx)/2 - $("#inputMeter").width()/2 + "px";
 	inArea.style.top = rect.top + fy - $("#inputMeter").height() - 5 + "px";
 	
-	showMessageBox("④ドラッグした線の長さを記入してください。<br>　線は何度でも引き直せます。");
+	showMessageBox("④ドラッグした線の長さを記入して<br>　決定を押してください。<br>　線は何度でも引き直せます。");
 	
 	//alert(rect.left +":"+ rect.top + "\n" + fx +":"+ fy + "\n" + lx +":"+ ly + "\n")
 }
