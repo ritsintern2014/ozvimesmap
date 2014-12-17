@@ -10,5 +10,5 @@ public interface ListService extends RemoteService {
 	String echoBack(String input, double x, double y, String MapKey, int Column, int type);
 	ArrayList<String> getMapList();
 	void DeleteItem(String itemkey);
-	String UpdateItem(String itemkey, String name, double x, double y, double Acc, String dis, String MapName);
+	String UpdateItem(String itemkey, String name, double x, double y, double Acc, String dis, String MapName, double lat, double lng);
 }

@@ -146,7 +146,23 @@ function getPitch(e){
 	return Math.sqrt(Math.pow((e.originalEvent.touches[1].pageX - e.originalEvent.touches[0].pageX),2)+Math.pow((e.originalEvent.touches[1].pageY - e.originalEvent.touches[0].pageY),2));
 }
 
+var showF = false;
 function disp(){
+	$(".tbicon img").click(function (event){
+		if(showF == false){
+			var picL = $(event.target).prop("src");	//画像のURL
+			var htmlStr = "<div class='pic-l'><img src='"+ picL +"' /></div>";
+			$(htmlStr).appendTo("body").trigger('create');
+			showF = true;
+		}	else{
+			$(".pic-l").remove();
+			showF = false;
+		}
+	});
+
+	$(".pic-l").click(function (event){
+		$(".pic-l").remove();
+	});
 	
 	var isChecked = new Array();
 	isChecked = GetCookies();
@@ -260,7 +276,7 @@ function checkDisp(boxid,classname){
 		}
 		var str = boxid + '=' + isCheck;
 		document.cookie = str;
-		console.log(document.cookie);
+	//	console.log(document.cookie);
 		return;
 	}
 	if(isCheck){
@@ -274,14 +290,14 @@ function checkDisp(boxid,classname){
 	}
 	var str = boxid + '=' + isCheck;
 	document.cookie = str;
-	console.log(document.cookie);
+	//console.log(document.cookie);
 }
 
 function GetCookies(){
 	var result = new Array();
 
 	var allcookies = document.cookie;
-	console.log(document.cookie);
+	//console.log(document.cookie);
 	if( allcookies != '' ){
 		var cookies = allcookies.split( '; ' );
 
@@ -291,6 +307,15 @@ function GetCookies(){
 			// クッキーの名前をキーとして 配列に追加する
 			result[ cookie[ 0 ] ] = decodeURIComponent( cookie[ 1 ] );
 		}
+	} else{
+		result["picDisp"] = "true";
+		result["upDisp"] = "true";
+		result["delDisp"] = "true";
+		result["qrDisp"] = "false";
+		result["desDisp"] = "true";
+		result["batDisp"] = "false";
+		result["debugDisp"] = "false";
+		result["minDisp"] = "false";
 	}
 
 	return result;

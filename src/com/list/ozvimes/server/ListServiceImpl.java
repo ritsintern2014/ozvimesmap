@@ -107,6 +107,9 @@ public class ListServiceImpl extends RemoteServiceServlet implements ListService
 					str += datas.get( i ).getBattery() + ",";
 
 					str += datas.get( i ).getItemID() + ",";
+
+					str += datas.get( i ).getLat() + ",";
+					str += datas.get( i ).getLng() + ",";
 				}
 			}
 		}
@@ -205,7 +208,7 @@ public class ListServiceImpl extends RemoteServiceServlet implements ListService
 
 	}
 
-	public String UpdateItem(String itemkey, String name, double x, double y,double Acc, String MapName, String dis){
+	public String UpdateItem(String itemkey, String name, double x, double y,double Acc, String MapName, String dis, double lat, double lng){
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
@@ -225,7 +228,10 @@ public class ListServiceImpl extends RemoteServiceServlet implements ListService
 				cItem.setOzvAcc(Acc);
 				cItem.setAreaID(MapName);
 				cItem.setDestination(dis);
-
+				
+				cItem.setLat(lat);
+				cItem.setLng(lng);
+				
 				//現在日時を取得する
 				Calendar c = Calendar.getInstance();
 				TimeZone.setDefault(TimeZone.getTimeZone("Asia/Tokyo"));

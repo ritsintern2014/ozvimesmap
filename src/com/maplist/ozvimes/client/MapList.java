@@ -161,7 +161,9 @@ public class MapList implements EntryPoint {
 
 
 					//str += "<tr>";
-					str += "<td class='tbicon'><a href='/mapedit.html?"+MapValue[0+i*valLength]+ "'><img src='" + Maps.get(i).getPath() + "'></img></a></td>";
+					/*str += "<td class='tbicon'><a href='/mapedit.html?"+MapValue[0+i*valLength]+ "'><img src='" + Maps.get(i).getPath() + "'></img></a></td>";*/
+					str += "<td class='tbicon'><img src='" + Maps.get(i).getPath() + "'></img></td>";
+					
 					str += "<td><a class='name' href=\"Ozvimesmap.html?"+ Maps.get(i).getKey() + "\">"+Maps.get( i ).getName() +"</a></td>";
 					//str += "<td>("+Maps.get( i ).getX()+ ", "+ Maps.get(i).getY()+ ")</td>";
 					str += "<td><div id=\"UpdateBtn"+ i +"\" align=\"center\"></div></td>";

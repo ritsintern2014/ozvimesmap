@@ -299,6 +299,7 @@ public class ListDisplay implements EntryPoint {
 				str += "<td>物品名</td>";
 				str += "<td>所在地</td>";
 				str += "<td class='debug'>(x ,y)</td>";
+				str += "<td class='debug'>(lat ,lng)</td>";
 				str += "<td class='destination'>納品先</td>";
 				str += "<td class='regi'>登録</td>";
 				str += "<td class='del'>削除</td>";
@@ -308,7 +309,7 @@ public class ListDisplay implements EntryPoint {
 				str += "<tbody>";
 
 				int i = 0;
-				int valLength = 10;
+				int valLength = 12;
 				for(i=0; i < ItemValue.length/valLength; i++){
 					//Items.add( new Item( ItemValue[0+i*valLength], ItemValue[1+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), ItemValue[5+i*valLength]  ) );
 					//Items.get(i).setIco//rl(ItemValue[6+i*valLength]);
@@ -316,7 +317,7 @@ public class ListDisplay implements EntryPoint {
 					//Window.alert(result);
 					
 					//List<Itema> Itemas = new ArrayList<Itema>();
-					Item item = new Item(ItemValue[9+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), 0.0, 0.0, 0.0, 0.0, ItemValue[5+i*valLength], Double.valueOf(ItemValue[8+i*valLength]), "0000");
+					Item item = new Item(ItemValue[9+i*valLength], Double.valueOf(ItemValue[2+i*valLength]), Double.valueOf(ItemValue[3+i*valLength]), Double.valueOf(ItemValue[4+i*valLength]), Double.valueOf(ItemValue[10+i*valLength]), Double.valueOf(ItemValue[11+i*valLength]), 0.0, 0.0, ItemValue[5+i*valLength], Double.valueOf(ItemValue[8+i*valLength]), "0000");
 					item.setIconUrl(ItemValue[6+i*valLength]);
 					item.setKey(ItemValue[0+i*valLength]);
 					item.setDestination(ItemValue[7+i*valLength]);
@@ -338,13 +339,14 @@ public class ListDisplay implements EntryPoint {
 					str += "<td><a class='name' href=\"Ozvimesmap.html?"+ item.getKey() + "\">" + item.getName() +"</a></td>";
 					str += "<td>"+ item.getAreaID() +"</td>";
 					str += "<td class='debug'>("+item.getX()+ ", "+ item.getY()+ ")</td>";
+					str += "<td class='debug'>("+item.getLat()+ ", "+ item.getLng()+ ")</td>";
 					//tstr += "<td><input type=\"button\" value=\"削除\" itemkey=\"" + Items.get(j).getKey()  + "\" id=\"deleteButton"+ j +"\"></td>";
 					
 					str += "<td class='destination'>"+ item.getDestination() +"</td>";
 					
 					str += "<td class='regi'><div id=\"UpdateBtn"+ i +"\" align=\"center\" class=\"btn1\"></div></td>";
 					str += "<td class='del'><div id=\"deleteBtn"+ i +"\" align=\"center\" class=\"btn1 del\"></div></td>";
-					str += "<td class='qr'><img class='qrcode' src=\"https://chart.googleapis.com/chart?cht=qr&chs="+"150x150"+"&chco="+"3C14AC"+"&chl=http://ri Items.get(i)tern2014.appspot.com/Ozvimesmap.html?" + item.getKey()+"\" /img>";
+					str += "<td class='qr'><img class='qrcode' src=\"https://chart.googleapis.com/chart?cht=qr&chs="+"150x150"+"&chco="+"3C14AC"+"&chl=http://ricohintern2014.appspot.com/Ozvimesmap.html?" + item.getKey()+"\" /img>";
 					str += "<td class='battery'>"+ item.getBattery() +"</td>";//					str += "</tr>";
 					
 				}
@@ -505,7 +507,7 @@ public class ListDisplay implements EntryPoint {
 					UpdateButton.addStyleName("btn1 upbtn");
 
 					final String keyVal = Items.get(i).getKey();
-					final UpdateDialogBox diag = new UpdateDialogBox(keyVal, Items.get(i).getName(), Items.get(i).getX(), Items.get(i).getY(), Items.get(i).getOzvAcc(), Items.get(i).getAreaID());	//更新用D-Box
+					final UpdateDialogBox diag = new UpdateDialogBox(keyVal, Items.get(i).getName(), Items.get(i).getX(), Items.get(i).getY(), Items.get(i).getOzvAcc(), Items.get(i).getDestination(), Items.get(i).getLat(), Items.get(i).getLng(), Items.get(i).getAreaID());	//更新用D-Box
 
 					deleteButton.addClickHandler(new ClickHandler(){
 						@Override
@@ -565,7 +567,7 @@ public class ListDisplay implements EntryPoint {
 
 
 	private class UpdateDialogBox extends DialogBox {
-		public UpdateDialogBox(String itemkey, String name, double x, double y, double Acc, final String mapname){
+		public UpdateDialogBox(String itemkey, String name, double x, double y, double Acc, String destination, double lat, double lng,  final String mapname){
 			setText("物品データの更新");
 			Button closeButton = new Button("Cancel");
 			Button sendButton = new Button("Send");
@@ -597,6 +599,10 @@ public class ListDisplay implements EntryPoint {
 			Label lab6 = new Label("[d]エリア :");
 			Label lab7 = new Label("物品画像 :");
 			
+			Label lab8 = new Label("[d]経度 :");
+			Label lab9 = new Label("[d]緯度 :");
+			
+			
 			lab1.addStyleName("dlog-label");
 			lab2.addStyleName("dlog-label");
 			lab3.addStyleName("dlog-label");
@@ -604,18 +610,24 @@ public class ListDisplay implements EntryPoint {
 			lab5.addStyleName("dlog-label");
 			lab6.addStyleName("dlog-label");
 			lab7.addStyleName("dlog-label");
+			lab8.addStyleName("dlog-label");
+			lab9.addStyleName("dlog-label");
 			
 			final TextBox nameBox = new TextBox();
 			final TextBox xPosBox = new TextBox();
 			final TextBox yPosBox = new TextBox();
 			final TextBox AccBox = new TextBox();
 			final TextBox desBox = new TextBox();
+			final TextBox latBox = new TextBox();
+			final TextBox lngBox = new TextBox();
 			
 			nameBox.setText(name);
 			xPosBox.setText(Double.toString(x));
 			yPosBox.setText(Double.toString(y));
 			AccBox.setText(Double.toString(Acc));
-			
+			desBox.setText(destination);
+			latBox.setText(Double.toString(lat));
+			lngBox.setText(Double.toString(lng));			
 			
 			hPane1.add(lab1);
 			hPane1.add(nameBox);
@@ -631,6 +643,10 @@ public class ListDisplay implements EntryPoint {
 			
 			hPane5.add(lab5);
 			hPane5.add(desBox);
+			
+			hPane2.addStyleName("debug");
+			hPane3.addStyleName("debug");
+			hPane4.addStyleName("debug");
 
 			panel.add(hPane1);
 			panel.add(hPane2);
@@ -638,12 +654,32 @@ public class ListDisplay implements EntryPoint {
 			panel.add(hPane4);
 			panel.add(hPane5);
 			
+			
+			
+
+			HorizontalPanel hPane8 = new HorizontalPanel();
+			HorizontalPanel hPane9 = new HorizontalPanel();
+			
+			hPane8.add(lab8);
+			hPane8.add(latBox);
+			
+			hPane9.add(lab9);
+			hPane9.add(lngBox);
+			
+			panel.add(hPane8);
+			panel.add(hPane9);
+
+			hPane8.addStyleName("debug");
+			hPane9.addStyleName("debug");
+			
+			
 			final ListBox lb = new ListBox();
 			
 			HorizontalPanel hPane6 = new HorizontalPanel();
 			
 			hPane6.add(lab6);
 			hPane6.add(lb);
+			hPane6.addStyleName("debug");
 
 			//	String[] mapList;
 
@@ -747,7 +783,7 @@ public class ListDisplay implements EntryPoint {
 						return;
 					}
 					
-					service.UpdateItem(iName, nameBox.getText(), Double.valueOf(xPosBox.getText()), Double.valueOf(yPosBox.getText()), Double.valueOf(AccBox.getText()), lb.getValue( lb.getSelectedIndex() ), desBox.getText(), new AsyncCallback<String>(){
+					service.UpdateItem(iName, nameBox.getText(), Double.valueOf(xPosBox.getText()), Double.valueOf(yPosBox.getText()), Double.valueOf(AccBox.getText()), lb.getValue( lb.getSelectedIndex() ), desBox.getText(), Double.parseDouble(latBox.getText()), Double.parseDouble(lngBox.getText()), new AsyncCallback<String>(){
 							
 						@Override
 						public void onFailure(Throwable caught) {
