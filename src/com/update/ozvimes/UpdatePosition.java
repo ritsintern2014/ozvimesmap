@@ -23,15 +23,15 @@ import com.common.ozvimes.PMF;
 
 public class UpdatePosition extends HttpServlet {
 	private static final Logger log = Logger.getLogger(UpdatePosition.class.getName());
-	
+
 	public void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws IOException {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		
+
 		Boolean isFail = false;
 
 		//取得した文字が適しているか、ダメならログを出してすべて破棄
-		
+
 		if(! checkGrammar("ItemID", req.getParameter("ItemID"), "^[A-F0-9]{4}$")) isFail = true;
 		if(! checkGrammar("APIDs", req.getParameter("APIDs"), "^[A-F0-9]{4}(,[A-F0-9]{4})*$")) isFail = true;
 		if(! checkGrammar("RSSIs",req.getParameter("RSSIs"), "^-{0,1}[0-9]{1,3}(,-{0,1}[0-9]{1,3})*,{0,1}$")) isFail = true;
@@ -43,7 +43,7 @@ public class UpdatePosition extends HttpServlet {
 		if(! checkGrammar("floor",req.getParameter("floor"), "^-{0,1}[0-9]{1,3}(\\.[05]){0,1}$")) isFail = true;
 		if(! checkGrammar("Imes Accuracy",req.getParameter("iAcc"), "^[0-9]{2}(\\.[0-9]){0,1}$")) isFail = true;
 		if(! checkGrammar("battery",req.getParameter("battery"), "^[0-9](\\.[0-9]{1,2}){0,1}$")) isFail = true;
-		
+
 		if(isFail)	return;
 
 		//取得したパラメータの格納
@@ -52,11 +52,13 @@ public class UpdatePosition extends HttpServlet {
 		String RSSIs = req.getParameter("RSSIs");
 		Double x = Double.parseDouble( req.getParameter("x") );
 		Double y = Double.parseDouble( req.getParameter("y") );
+		// OZVの誤差情報　2015年試験場で実装予定
 		Double ozvAcc =Double.parseDouble( req.getParameter("oAcc") );
 		Double lat = Double.parseDouble( req.getParameter("lat") );
 		Double lng = Double.parseDouble( req.getParameter("lng") );
 		Double floor = Double.parseDouble( req.getParameter("floor") );
 		Double imesAcc =Double.parseDouble( req.getParameter("iAcc") );
+		// 2014/12は未使用
 		Double battery = Double.parseDouble( req.getParameter("battery") );
 
 		String AreaID = getArea(APIDs, RSSIs);	//エリアを判別
@@ -77,7 +79,7 @@ public class UpdatePosition extends HttpServlet {
 				emp.setName("none");
 				emp.setIconUrl("none");
 				emp.setDestination("---");
-				
+
 				emp.setAPIDs(APIDs);
 				emp.setRSSIs(RSSIs);
 
@@ -152,7 +154,7 @@ public class UpdatePosition extends HttpServlet {
 							map.put(areaName, tmp);	//エリアごとのタグ数カウント
 						}
 					}
-				}	
+				}
 			}
 		}
 
@@ -189,17 +191,17 @@ public class UpdatePosition extends HttpServlet {
 		String spMark = "[\\!\"#$%&'\\(\\)=~\\|`\\{\\+\\*\\}<>\\?_\\^\\@\\[;:\\]/]";
 		Pattern p1 = Pattern.compile(spMark);
 		Matcher m1 = p1.matcher( str );
-		
+
 		//特殊文字を含む場合、棄却
 		if(m1.find() == true){
 			log.warning(reqName + " not match.\nIt has bad character.");
 			return false;
 		}
-		
-		//マッチしなかった場合、棄却		
+
+		//マッチしなかった場合、棄却
 		Pattern p2 = Pattern.compile(pat);
 		Matcher m2 = p2.matcher( str );
-		
+
 		if(m2.find() == false){
 			log.warning(reqName + " not match.");
 			return false;
