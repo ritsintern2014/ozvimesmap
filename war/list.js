@@ -139,7 +139,6 @@ window.onload = function(){
 			clearInterval(timer1);
 		}
 	}, 100);
-	
 }
 
 function getPitch(e){
@@ -148,21 +147,7 @@ function getPitch(e){
 
 var showF = false;
 function disp(){
-	$(".tbicon img").click(function (event){
-		if(showF == false){
-			var picL = $(event.target).prop("src");	//画像のURL
-			var htmlStr = "<div class='pic-l'><img src='"+ picL +"' /></div>";
-			$(htmlStr).appendTo("body").trigger('create');
-			showF = true;
-		}	else{
-			$(".pic-l").remove();
-			showF = false;
-		}
-	});
 
-	$(".pic-l").click(function (event){
-		$(".pic-l").remove();
-	});
 	
 	var isChecked = new Array();
 	isChecked = GetCookies();
@@ -321,8 +306,31 @@ function GetCookies(){
 	return result;
 }
 
+var isFirstHide = true;
 function hideLoader(){
 	$("#loading").css("display","none");
+
+	if(isFirstHide){
+		$(".tbicon img").click(function (event){
+			if(showF == false){
+				var picL = $(event.target).prop("src");	//画像のURL
+				var htmlStr = "<div class='pic-l'><img src='"+ picL +"' /></div>";
+				$(htmlStr).appendTo("body");
+
+				$(".pic-l img").click(function (event){
+					$(".pic-l").remove();
+					showF = false;
+				});
+
+				showF = true;
+			}	else{
+				$(".pic-l").remove();
+				showF = false;
+			}
+		});
+
+		isFirstHide = false;
+	}
 }
 
 function showLoader(){

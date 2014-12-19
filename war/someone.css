@@ -38,7 +38,7 @@ body { /*
   left: 30%;
   padding: 1rem;
   background: #fff;
-  box-shadow: rgba(115,115,115,0.2) 0 0 1rem 0.1rem;
+  box-shadow: rgba(115,115,115,1) 0 0 2rem 0.1rem;
   text-align: right;
 }
 
@@ -443,16 +443,16 @@ input[type=checkbox] + Label:hover{
   font-size: 2.5rem;
   
   border: none;
-  border-radius: 30rem;
+  border-radius: 3rem;
   box-shadow: 0 0 0.5rem #33f;
 }
 
-.delbtn:hover, .upbtn:hover{
+.delbtn:hover, .upbtn:hover, .addressbtn:hover{
   transform:scale(1.2);
 }
 
 .addressbtn{
-  background: url(./img/post.png);
+  background: url(./img/post2.png);
   background-size: contain; 
 
   background-repeat: no-repeat;
@@ -461,7 +461,11 @@ input[type=checkbox] + Label:hover{
   border-radius: 1rem;
   border:#ddd 0.5rem outset;
   min-width: 10rem;
-  min-height: 10rem;  
+  min-height: 10rem; 
+  
+  border: none;
+  border-radius: 3rem;
+  box-shadow: 0 0 0.5rem #393;
 }
 
 .googlemap {
