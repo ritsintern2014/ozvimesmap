@@ -52,6 +52,7 @@ public class UpdatePosition extends HttpServlet {
 		String RSSIs = req.getParameter("RSSIs");
 		Double x = Double.parseDouble( req.getParameter("x") );
 		Double y = Double.parseDouble( req.getParameter("y") );
+		// OZVの誤差情報　2015年試験場で実装予定
 		Double ozvAcc =Double.parseDouble( req.getParameter("oAcc") );
 		Double lat = Double.parseDouble( req.getParameter("lat") );
 		Double lng = Double.parseDouble( req.getParameter("lng") );
